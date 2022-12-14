@@ -1,7 +1,6 @@
 import 'package:aula_flutter_2/models/planet.dart';
+import 'package:aula_flutter_2/pages/moons_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key, required this.planet});
@@ -11,7 +10,18 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(planet.name)),
+      appBar: AppBar(
+        title: Text(planet.name),
+        actions: [
+          TextButton(
+            child: const Text('Moons'),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MoonsPage(planet: planet))
+            )
+          )
+        ],
+      ),
       body: _buildDetail()
     );
   }

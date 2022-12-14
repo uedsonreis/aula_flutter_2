@@ -1,8 +1,6 @@
 import 'package:aula_flutter_2/models/planet.dart';
 import 'package:aula_flutter_2/pages/detail_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class PlanetItem extends StatelessWidget {
   const PlanetItem({super.key, required this.planet});
