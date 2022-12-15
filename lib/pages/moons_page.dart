@@ -27,6 +27,10 @@ class _MoonsPageState extends State<MoonsPage> {
     }
   }
 
+  Future<void> removeMoon(String moon) async {
+    await moonRepository.remove(widget.planet.id.toString(), moon);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,9 +62,7 @@ class _MoonsPageState extends State<MoonsPage> {
                   return ListView.builder(
                     itemCount: moons.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(moons[index]),
-                      );
+                      return _buildItem(context, moons[index]);
                     }
                   );
                 },
@@ -71,4 +73,25 @@ class _MoonsPageState extends State<MoonsPage> {
       ),
     );
   }
+
+  Widget _buildItem(BuildContext context, String moon) {
+    return Dismissible(
+      key: ValueKey<String>(moon),
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.center,
+        child: const Text('delete', style: TextStyle(fontSize: 28),),
+      ),
+      onDismissed: (direction) {
+        removeMoon(moon);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("$moon moon was deleted!"))
+        );
+      },
+      child: ListTile(
+        title: Text(moon),
+      ),
+    );
+  }
+
 }
